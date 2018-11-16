@@ -2,9 +2,9 @@
 - name: Deploy {{ target }} 
   hosts: "{{ target }}"
   vars:
-    ci_cd_namespace: labs-ci-cd
-    dev_namespace: labs-dev
-    test_namespace: labs-test
+    ci_cd_namespace: labs-ci-cdryan
+    dev_namespace: labs-devryan
+    test_namespace: labs-testryan
   
   roles:
     - { role: openshift-applier/roles/openshift-applier }
