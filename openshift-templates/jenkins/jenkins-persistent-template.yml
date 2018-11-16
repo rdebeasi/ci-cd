@@ -79,6 +79,20 @@ objects:
             value: ${JNLP_SERVICE_NAME}
           - name: JENKINS_OPTS
             value: ${JENKINS_OPTS}
+          - name: SLACK_BASE_URL
+            value: ${SLACK_BASE_URL}
+          - name: SLACK_ROOM
+            value: ${SLACK_ROOM}
+          - name: SLACK_TOKEN
+            value: ${SLACK_TOKEN}
+          - name: SHARED_LIB_REPO
+            value: ${SHARED_LIB_REPO}
+          - name: SHARED_LIB_NAME
+            value: ${SHARED_LIB_NAME}
+          - name: SHARED_LIB_REF
+            value: ${SHARED_LIB_REF}
+          - name: SHARED_LIB_SECRET
+            value: ${SHARED_LIB_SECRET}
           image: ' '
           imagePullPolicy: IfNotPresent
           livenessProbe:
@@ -96,10 +110,10 @@ objects:
             initialDelaySeconds: 3
             timeoutSeconds: 3
           resources:
+            requests:
+              memory: ${MEMORY_REQUEST}
             limits:
               memory: ${MEMORY_LIMIT}
-            requests:
-              memory: 512Mi
           securityContext:
             capabilities: {}
             privileged: false
@@ -196,6 +210,10 @@ parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
   name: MEMORY_LIMIT
+  value: 2Gi
+- description: Starting request of memory the container can use.
+  displayName: Memory Request
+  name: MEMORY_REQUEST
   value: 512Mi
 - description: Volume space available for data, e.g. 512Mi, 2Gi.
   displayName: Volume Capacity
@@ -214,3 +232,27 @@ parameters:
   displayName: Jenkins Arguments
   name: JENKINS_OPTS
   value: --sessionTimeout=0
+- description: The integration point with slack
+  displayName: Slack Base URL
+  name: SLACK_BASE_URL
+- description: The default slack channel
+  displayName: Default Slack Channel
+  name: SLACK_ROOM
+- description: Slack Token
+  displayName: Slack Token
+  name: SLACK_TOKEN
+- description: Jenkins Shared Library Repository URL
+  displayName: Jenkins Shared Library Repo URL
+  name: SHARED_LIB_REPO
+  value: https://github.com/mcanoy/jenkins-shared-library
+- description: Jenkins Shared Library Secret for Repository
+  displayName: Jenkins Shared Library Secret for Repository
+  name: SHARED_LIB_SECRET
+- description: Jenkins Shared Library Ref
+  displayName: Jenkins Shared Library Ref
+  name: SHARED_LIB_REF
+  value: master
+- description: Jenkins Shared Library Name
+  displayName: Jenkins Shared Library Name
+  name: SHARED_LIB_NAME
+  value: kevin-jenkins-shared
