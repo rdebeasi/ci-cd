@@ -189,6 +189,30 @@ objects:
       name: ${JENKINS_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
+- apiVersion: v1
+  kind: RoleBinding
+  metadata:
+    name: jenkins_pipeline_edit
+  roleRef: 
+    name: edit
+  subjects: 
+  - kind: ServiceAccount
+    name: jenkins
+    namespace: "{{ dev_namespace }}"
+  userNames:
+  - system:serviceaccount:{{ dev_namespace }}:jenkins
+- apiVersion: v1
+  kind: RoleBinding
+  metadata:
+    name: jenkins_pipeline_edit
+  roleRef: 
+    name: edit
+  subjects: 
+  - kind: ServiceAccount
+    name: jenkins
+    namespace: "{{ test_namespace }}"
+  userNames:
+  - system:serviceaccount:{{ test_namespace }}:jenkins
 parameters:
 - description: The name of the OpenShift Service exposed for the Jenkins container.
   displayName: Jenkins Service Name
