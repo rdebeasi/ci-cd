@@ -189,30 +189,6 @@ objects:
       name: ${JENKINS_SERVICE_NAME}
     sessionAffinity: None
     type: ClusterIP
-- apiVersion: v1
-  kind: RoleBinding
-  metadata:
-    name: jenkins_pipeline_edit
-  roleRef: 
-    name: edit
-  subjects: 
-  - kind: ServiceAccount
-    name: ${JENKINS_SERVICE_NAME}
-    namespace: ${DEV_NAMESPACE}
-  userNames:
-  - system:serviceaccount:${CI_CD_NAMESPACE}:jenkins
-- apiVersion: v1
-  kind: RoleBinding
-  metadata:
-    name: jenkins_pipeline_edit
-  roleRef: 
-    name: edit
-  subjects: 
-  - kind: ServiceAccount
-    name: ${JENKINS_SERVICE_NAME}
-    namespace: "${TEST_NAMESPACE}"
-  userNames:
-  - system:serviceaccount:${CI_CD_NAMESPACE}:jenkins
 parameters:
 - description: The name of the OpenShift Service exposed for the Jenkins container.
   displayName: Jenkins Service Name
@@ -280,15 +256,3 @@ parameters:
   displayName: Jenkins Shared Library Name
   name: SHARED_LIB_NAME
   value: kevin-jenkins-shared
-- description: Namespace used for the dev environment
-  displayName: Development Namespace
-  name: DEV_NAMESPACE
-  value: labs-devryan
-- description: Namespace used for the test environment
-  displayName: Test Namespace
-  name: TEST_NAMESPACE
-  value: labs-testryan
-- description: Namespace used for the CI-CD environment
-  displayName: CI-CD Namespace
-  name: CI_CD_NAMESPACE
-  value: labs-ci-cdryan

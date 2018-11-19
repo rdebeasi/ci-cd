@@ -1,6 +1,9 @@
 ---
-
 ansible_connection: local
+
+jenkins:
+  JENKINS_NAMESPACE: "{{ ci_cd_namespace }}"
+
 
 openshift_cluster_content:
 - object: projectrequest
@@ -43,3 +46,21 @@ openshift_cluster_content:
     params: "{{ playbook_dir }}/params/rolebinding-group/all"
     tags:
     - rolebinding-group
+- object: jenkins-role-binding
+  content:
+  - name: "jenkins-{{ dev_namespace }}-role-binding"
+    template: "{{ playbook_dir }}/openshift-templates/rolebinding-jenkins/rolebinding-template-jenkins.yml"
+    params_from_vars: "{{ jenkins }}"
+    namespace: "{{ dev_namespace }}"
+    tags:
+    - "{{ dev_namespace }}"
+    - rolebinding-jenkins
+    - "rolebinding-jenkins-{{ dev_namespace }}"
+  - name: "jenkins-{{ test_namespace }}-role-binding"
+    template: "{{ playbook_dir }}/openshift-templates/rolebinding-jenkins/rolebinding-template-jenkins.yml"
+    params_from_vars: "{{ jenkins }}"
+    namespace: "{{ test_namespace }}"
+    tags:
+    - "{{ test_namespace }}"
+    - rolebinding-jenkins
+    - "rolebinding-jenkins-{{ test_namespace }}"
