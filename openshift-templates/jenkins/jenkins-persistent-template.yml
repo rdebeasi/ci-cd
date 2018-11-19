@@ -198,9 +198,9 @@ objects:
   subjects: 
   - kind: ServiceAccount
     name: jenkins
-    namespace: "{{ dev_namespace }}"
+    namespace: ${DEV_NAMESPACE}
   userNames:
-  - system:serviceaccount:{{ dev_namespace }}:jenkins
+  - system:serviceaccount:${DEV_NAMESPACE}:jenkins
 - apiVersion: v1
   kind: RoleBinding
   metadata:
@@ -210,9 +210,9 @@ objects:
   subjects: 
   - kind: ServiceAccount
     name: jenkins
-    namespace: "{{ test_namespace }}"
+    namespace: "${TEST_NAMESPACE}"
   userNames:
-  - system:serviceaccount:{{ test_namespace }}:jenkins
+  - system:serviceaccount:${TEST_NAMESPACE}:jenkins
 parameters:
 - description: The name of the OpenShift Service exposed for the Jenkins container.
   displayName: Jenkins Service Name
@@ -280,3 +280,11 @@ parameters:
   displayName: Jenkins Shared Library Name
   name: SHARED_LIB_NAME
   value: kevin-jenkins-shared
+- description: Namespace used for the dev environment
+  displayName: Development Namespace
+  name: DEV_NAMESPACE
+  value: labs-devryan
+- description: Namespace used for the test environment
+  displayName: Test Namespace
+  name: TEST_NAMESPACE
+  value: labs-testryan
