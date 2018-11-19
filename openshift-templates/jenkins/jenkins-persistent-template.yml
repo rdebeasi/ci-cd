@@ -291,4 +291,4 @@ parameters:
 - description: Namespace used for the CI-CD environment
   displayName: CI-CD Namespace
   name: CI_CD_NAMESPACE
-  value: labs-testryan
+  value: labs-ci-cdryan
